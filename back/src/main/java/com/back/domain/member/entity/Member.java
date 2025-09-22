@@ -2,11 +2,11 @@ package com.back.domain.member.entity;
 
 import com.back.domain.post.entity.Post;
 import com.back.global.jpa.entity.BaseEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,17 +14,21 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 public class Member extends BaseEntity {
-    @UniqueElements
+    @Column(unique = true)
     private String nickname;
-    @UniqueElements
+    @Column(unique = true)
     private String email;
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Post> posts = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    private final List<Post> myPosts = new ArrayList<>();
 
-    public boolean isWriter(long postId) {
-        return posts.stream()
-                .anyMatch(post -> postId==post.getId());
+
+
+
+    public Member(String nickname, String email, String password) {
+        this.nickname = nickname;
+        this.email = email;
+        this.password = password;
     }
 }
