@@ -6,7 +6,6 @@ import com.back.global.jpa.entity.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +18,7 @@ import java.util.List;
 public class Post extends BaseEntity {
     // 작성한 사람
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Member writer;
 
     @NotBlank
@@ -32,7 +31,6 @@ public class Post extends BaseEntity {
     private final List<Trip> trips = new ArrayList<>();
 
     // 함께 참여한 사람들
-    @Size(min=1)
     @ManyToMany(fetch = FetchType.LAZY)
     private final List<Member> members = new ArrayList<>();
 
@@ -49,6 +47,11 @@ public class Post extends BaseEntity {
 
     public void addMembers(List<Member> members) {
         this.members.addAll(members);
+    }
+
+    public void addTrip(Trip trip) {
+        trips.add(trip);
+        trip.setPost(this);
     }
 
     public Trip getRepresentTrip() {

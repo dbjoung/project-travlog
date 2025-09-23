@@ -9,6 +9,4 @@ public class PostWriteDto {
     private String title;
     @NotBlank
     private String description;
-    @NotBlank
-    private String representImage;
 }

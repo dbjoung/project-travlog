@@ -15,18 +15,15 @@ import java.util.List;
 @NoArgsConstructor
 public class Member extends BaseEntity {
     @Column(unique = true)
-    private String nickname;
-    @Column(unique = true)
     private String email;
+    private String nickname;
     private String password;
 
     @OneToMany(fetch = FetchType.LAZY)
     private final List<Post> myPosts = new ArrayList<>();
 
 
-
-
-    public Member(String nickname, String email, String password) {
+    public Member(String email, String nickname, String password) {
         this.nickname = nickname;
         this.email = email;
         this.password = password;
