@@ -1,5 +1,11 @@
+import TripCard from './TripCard.tsx';
+
 function TripCardList() {
-  return <></>;
+  return (
+    <>
+      <TripCard />
+    </>
+  );
 }
 
 export default TripCardList;
